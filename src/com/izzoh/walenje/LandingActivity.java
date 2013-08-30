@@ -62,8 +62,7 @@ public class LandingActivity extends SherlockFragmentActivity {
     public static class SupermarketAdapter extends ArrayAdapter<Supermarket> {
 
         public SupermarketAdapter(Context c) {
-            // super(c, R.layout.super_list_item_2);
-            super(c, android.R.layout.simple_list_item_1);
+            super(c, R.layout.super_list_item);
         }
 
         public void setData(List<Supermarket> data) {
@@ -75,23 +74,20 @@ public class LandingActivity extends SherlockFragmentActivity {
             }
         }
 
-        // @Override
-        public View getViemw(int position, View convertView, ViewGroup parent) {
-            LayoutInflater inflater = (LayoutInflater) getContext()
-                    .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        @Override
+        public View getView(int position, View convertView, ViewGroup parent) {
+            LayoutInflater inflater = (LayoutInflater) getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
-            // View v = (convertView == null) ? inflater.inflate(R.layout.super_list_item_2, parent, false) : convertView;
-            View v = inflater.inflate(R.layout.super_list_item_2, parent, false);
+            View v = (convertView == null) ?
+                    inflater.inflate(R.layout.super_list_item, parent, false) :
+                    convertView;
 
             Supermarket s = getItem(position);
-            ((TextView) v.findViewById(R.id.txtCount)).setText(String.valueOf(s
-                    .getPoints()));
+            ((TextView) v.findViewById(R.id.txtCount)).setText(String.valueOf(s.getPoints()));
             ((TextView) v.findViewById(R.id.txtName)).setText(s.getName());
             if (s.getIcon() != -1 && s.getIcon() != 0)
-                ((ImageView) v.findViewById(R.id.imgLogo)).setImageResource(s
-                        .getIcon());
+                ((ImageView) v.findViewById(R.id.imgLogo)).setImageResource(s.getIcon());
             return v;
-
         }
     }
 
@@ -113,8 +109,7 @@ public class LandingActivity extends SherlockFragmentActivity {
         }
     }
 
-    public static class SupermarketListFrag extends SherlockListFragment
-            implements LoaderManager.LoaderCallbacks<List<Supermarket>> {
+    public static class SupermarketListFrag extends SherlockListFragment implements LoaderManager.LoaderCallbacks<List<Supermarket>> {
 
         private SupermarketAdapter adapter;
 
@@ -124,8 +119,7 @@ public class LandingActivity extends SherlockFragmentActivity {
             setEmptyText(getResources().getString(R.string.empty_point_list));
             adapter = new SupermarketAdapter(getActivity());
             setListShown(false);
-            SupermarketLoader l = (SupermarketLoader) getLoaderManager()
-                    .initLoader(0, null, this);
+            SupermarketLoader l = (SupermarketLoader) getLoaderManager().initLoader(0, null, this);
             l.forceLoad();
             setListAdapter(adapter);
         }
@@ -133,12 +127,10 @@ public class LandingActivity extends SherlockFragmentActivity {
         @Override
         public void onListItemClick(ListView l, View v, int position, long id) {
             super.onListItemClick(l, v, position, id);
-            Supermarket sp = (Supermarket) getListAdapter().getItem(position);// (Supermarket) l.getSelectedItem();
-            // TODO Remove hack to accomodate string
+            Supermarket sp = (Supermarket) getListAdapter().getItem(position);//l.getSelectedItem();
             Intent i = new Intent(getActivity(), ReportActivity.class);
             i.putExtra(ReportActivity.EXTRA_SUPER, sp);
             startActivity(i);
-
         }
 
         @Override
@@ -147,17 +139,15 @@ public class LandingActivity extends SherlockFragmentActivity {
         }
 
         @Override
-        public void onLoadFinished(Loader<List<Supermarket>> arg0,
-                List<Supermarket> arg1) {
+        public void onLoadFinished(Loader<List<Supermarket>> arg0, List<Supermarket> arg1) {
             adapter.setData(arg1);
-            setListShown(true);
+            // setListShown(true);
         }
 
         @Override
         public void onLoaderReset(Loader<List<Supermarket>> arg0) {
             adapter.notifyDataSetInvalidated();
             adapter.setData(null);
-            //
             // setListShown(false);
         }
     }
