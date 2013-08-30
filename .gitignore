@@ -1,0 +1,13 @@
+#generated files
+bin/
+gen/
+
+#class files
+*.class
+
+#eclipse files
+proguard-project.txt
+.classpath
+.project
+.settings/
+project.properties
