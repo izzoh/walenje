@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">Walenje</string>
+    <string name="action_settings">Settings</string>
+
+    <string-array name="test_data">
+        <item>+254</item>
+        <item>+253</item>
+        <item>+255</item>
+        <item>+256</item>
+    </string-array>
+
+    <string name="empty_point_list">Not enrolled for smart points.\nVisit your supermarket or </string>
+
+</resources>
